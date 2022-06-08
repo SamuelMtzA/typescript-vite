@@ -1,9 +1,9 @@
 import "toastify-js/src/toastify.css"
 import './style.css'
 import Toastify from 'toastify-js'
-
 import { v4 } from 'uuid';
 
+//selecting taskList and taskform
 const taskForm = document.querySelector<HTMLFormElement>('#taskForm');
 const taskList = document.querySelector<HTMLDivElement>('#taskList');
 
@@ -12,15 +12,13 @@ interface Task {
   description: string;
   id: string;
 }
-
+//array of tasks 
 let tasks: Task[] = [];
 //load task in local storage
 taskForm?.addEventListener('submit', (event) => {
   event.preventDefault();
   const title = taskForm['title'] as unknown as HTMLInputElement;
   const description = taskForm['description'] as unknown as HTMLTextAreaElement;
-  console.log(title.value);
-  console.log(description.value);
 
   tasks.push({
     title: title.value,
@@ -89,7 +87,7 @@ const renderTasks = (tasks: Task[]) => {
       if (task.id) {
         const index = tasks.findIndex(t => t.id === task.id);
         tasks.splice(index, 1);
-        //up[date local storage]
+        //update local storage
         localStorage.setItem('task', JSON.stringify(tasks));
         renderTasks(tasks);
       }
